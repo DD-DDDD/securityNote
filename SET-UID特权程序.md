@@ -80,7 +80,7 @@ sudo chown root mycat
 sudo chmod 4755 mycat
 # 查看 shadow 文件
 ./mycat /etc/shadow
-#>> ubuntu:$1$SCVbTHlr$J1SYTNyCd//PfNC.6l/Az0:19262:0:99999:7:::
+#>> ubuntu:$1$SCVbTHl$J1SYTNyCdPfNC.6l/Az0:19262:0:99999:7:::
 ```
 
 保存加密后的密码和用户的相关密码信息，每一行代表一个用户，每一行通过冒号`：`分为九个部分
@@ -95,19 +95,27 @@ sudo chmod 4755 mycat
 8. 用户过期日期(从1970.1.1开始的总天数)，如果为0，则该用户永久可用
 9. 保留
 
-以上可知，加密后的密码为:  `$1$SCVbTHlr$J1SYTNyCd//PfNC.6l/Az0`, 加密的密码具有固定格式：`$id$salt$encrypted`
+以上可知，加密后的密码为:  `$1$SCVbTHl$J1SYTNyCdPfNC.6l/Az0`, 加密的密码具有固定格式：`$id$salt$encrypted`
 
 *id*表示加密算法，1代表`MD5`，5代表`SHA-256`，6代表`SHA-512`, 系统随机生成 *encrypted*表示密码的*hash*.
-
-
 
 ##### SET-UID 的安全性讨论
 
 从原理上讲，*SET-UID* 程序是安全的，因为用户只能执行 *SET-UID* 程序中定义好的操作，用户的行为是受限的。但是，并未都是安全的，例如，`/bin/sh` 程序如果是 *SET-UID* 程序，则用户可以执行任何指定的命令，这是不安全的。
 
+##### SET-UID 攻击面
 
+*SET-UID* 的攻击面，主要是程序获得输入的地方，如果没有很好的进行校验，那么就会影响程序的行为。
 
+<img src="img/image-20230211213819106.png" alt="image-20230211213819106" style="zoom:50%;" />
 
+-  **用户输入: 显示输入** 
+
+  
+
+-  **系统输入**
+
+-  **环境变量**
 
 
 
